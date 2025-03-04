@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyberpunk Portfolio</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/portfolio/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script defer src="/porfolio/script.js"></script>
+    <script defer src="script.js"></script>
 </head>
 <body class="dark-mode">
     <!-- Carousel -->
@@ -59,17 +59,25 @@
     <!-- Main Content -->
     <div class="container text-center mt-5">
         <section id="hero">
-            <h1>Welcome to My Digital Domain</h1>
-            <p>Neon dreams, glitching realities, and futuristic visions.</p>
+            <h1 class="glitch">Welcome to My Digital Domain</h1>
+            <p class="neon-text">Neon dreams, glitching realities, and futuristic visions.</p>
         </section>
 
         <section id="portfolio">
-            <h2>My Work</h2>
+            <h2 class="glitch">My Work</h2>
             <p>Showcasing my best pieces...</p>
+            <div class="row">
+                <div class="col-md-4"><div class="portfolio-item">Filler 1</div></div>
+                <div class="col-md-4"><div class="portfolio-item">Filler 2</div></div>
+                <div class="col-md-4"><div class="portfolio-item">Filler 3</div></div>
+                <div class="col-md-4"><div class="portfolio-item">Filler 4</div></div>
+                <div class="col-md-4"><div class="portfolio-item">Filler 5</div></div>
+                <div class="col-md-4"><div class="portfolio-item">Filler 6</div></div>
+            </div>
         </section>
 
         <section id="about">
-            <h2>About Me</h2>
+            <h2 class="glitch">About Me</h2>
             <p>A digital artist with a cyberpunk obsession.</p>
         </section>
     </div>
@@ -83,5 +91,26 @@
 
     <!-- Scroll to Top Button -->
     <button id="scrollTop">▲</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let lastScrollTop = 0;
+            const navbar = document.getElementById("navbar");
+            const carousel = document.getElementById("carouselExample");
+            
+            window.addEventListener("scroll", function () {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > lastScrollTop) {
+                    navbar.style.transform = "translateY(-100%)";
+                    carousel.style.display = "none";
+                } else {
+                    navbar.style.transform = "translateY(0)";
+                    carousel.style.display = "block";
+                }
+                lastScrollTop = scrollTop;
+            });
+        });
+    </script>
 </body>
 </html>
