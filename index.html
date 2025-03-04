@@ -40,11 +40,11 @@
     </nav>
     <div class="container mt-5">
         <section id="portfolio">
-            <h2>My Work</h2>
+            <h2>Finished Projects</h2>
             <div class="row">
-                <div class="col-md-4"><img src="Rage-Goat.jpg" class="portfolio-item" alt="Raging Goat 1" data-info="Artwork 1 Raging Goat Dripping"></div>
-                <div class="col-md-4"><img src="filler2.jpg" class="portfolio-item" alt="Filler 2" data-info="Artwork 2 description"></div>
-                <div class="col-md-4"><img src="filler3.jpg" class="portfolio-item" alt="Filler 3" data-info="Artwork 3 description"></div>
+                <div class="col-md-4"><img src="Rage-Goat.jpg" class="portfolio-item" alt="Raging Giat" data-info="Artwork:Raging Goat Dripping Hard"></div>
+                <!--div class="col-md-4"><img src="filler2.jpg" class="portfolio-item" alt="Filler 2" data-info="Artwork 2 description"></div>
+                <div class="col-md-4"><img src="filler3.jpg" class="portfolio-item" alt="Filler 3" data-info="Artwork 3 description"></div-->
             </div>
         </section>
     </div>
@@ -52,6 +52,7 @@
     <div id="chatbot" class="chatbot">
         <div>Interactive FAQ</div>
         <input type="text" id="chatInput" placeholder="Ask me anything...">
+        <div id="faqResults"></div>
     </div>
     <button id="scrollTop">▲</button>
     <script>
@@ -62,6 +63,28 @@
             const searchResults = document.getElementById("searchResults");
             const chatToggle = document.getElementById("chatToggle");
             const chatbot = document.getElementById("chatbot");
+            const chatInput = document.getElementById("chatInput");
+            const faqResults = document.getElementById("faqResults");
+
+            const faqData = [
+                { question: "How are these pieces made?", answer: "Each piece has a different story. The normale proccess is just brainstorming, sometimes doodling. Then photo scan or google search for ideas. Then play with placing and colors in either Illustrator or Photoshop!" },
+                { question: "What software do you use?", answer: "I use Adobe Illustrator, Photoshop, and Dreamweaver for my creations." },
+                { question: "Do you take commissions?", answer: "Yes! Contact me through the Contact section for commission inquiries." }
+            ];
+
+            chatInput.addEventListener("input", function () {
+                let query = chatInput.value.toLowerCase();
+                faqResults.innerHTML = "";
+                if (query.length > 1) {
+                    faqData.forEach(faq => {
+                        if (faq.question.toLowerCase().includes(query)) {
+                            let resultItem = document.createElement("div");
+                            resultItem.textContent = faq.answer;
+                            faqResults.appendChild(resultItem);
+                        }
+                    });
+                }
+            });
 
             window.addEventListener("scroll", function () {
                 let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
