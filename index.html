@@ -45,9 +45,10 @@
                     <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">Search</button>
+                <form class="d-flex position-relative">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                    <button class="btn btn-outline-light" type="button" id="searchBtn">Search</button>
+                    <div id="searchResults" class="search-results position-absolute w-100 bg-dark text-light d-none"></div>
                 </form>
             </div>
         </div>
@@ -67,12 +68,12 @@
             <h2 class="glitch">My Work</h2>
             <p>Showcasing my best pieces...</p>
             <div class="row">
-                <div class="col-md-4"><img src="Rage-Goat.jpg" class="img-fluid portfolio-item" alt="Filler 1"></div>
-                <div class="col-md-4"><img src="filler2.jpg" class="img-fluid portfolio-item" alt="Filler 2"></div>
-                <div class="col-md-4"><img src="filler3.jpg" class="img-fluid portfolio-item" alt="Filler 3"></div>
-                <div class="col-md-4"><img src="filler4.jpg" class="img-fluid portfolio-item" alt="Filler 4"></div>
-                <div class="col-md-4"><img src="filler5.jpg" class="img-fluid portfolio-item" alt="Filler 5"></div>
-                <div class="col-md-4"><img src="filler6.jpg" class="img-fluid portfolio-item" alt="Filler 6"></div>
+                <div class="col-md-4"><img src="filler1.jpg" class="img-fluid portfolio-item" alt="Filler 1" data-info="Artwork 1 description"></div>
+                <div class="col-md-4"><img src="filler2.jpg" class="img-fluid portfolio-item" alt="Filler 2" data-info="Artwork 2 description"></div>
+                <div class="col-md-4"><img src="filler3.jpg" class="img-fluid portfolio-item" alt="Filler 3" data-info="Artwork 3 description"></div>
+                <div class="col-md-4"><img src="filler4.jpg" class="img-fluid portfolio-item" alt="Filler 4" data-info="Artwork 4 description"></div>
+                <div class="col-md-4"><img src="filler5.jpg" class="img-fluid portfolio-item" alt="Filler 5" data-info="Artwork 5 description"></div>
+                <div class="col-md-4"><img src="filler6.jpg" class="img-fluid portfolio-item" alt="Filler 6" data-info="Artwork 6 description"></div>
             </div>
         </section>
 
@@ -82,8 +83,11 @@
         </section>
     </div>
 
+    <!-- FAQ Chatbot Toggle Button -->
+    <button id="chatToggle" class="chat-toggle">❔ FAQ</button>
+
     <!-- FAQ Chatbot -->
-    <div id="chatbot" class="chatbot">
+    <div id="chatbot" class="chatbot hidden">
         <div class="chat-header">Interactive FAQ</div>
         <div class="chat-body" id="chatBody"></div>
         <input type="text" id="chatInput" placeholder="Ask me anything...">
@@ -97,12 +101,11 @@
             let lastScrollTop = 0;
             const navbar = document.getElementById("navbar");
             const carousel = document.getElementById("carouselExample");
-            const chatbotInput = document.getElementById("chatInput");
-            const chatBody = document.getElementById("chatBody");
+            const searchInput = document.getElementById("searchInput");
+            const searchResults = document.getElementById("searchResults");
 
             window.addEventListener("scroll", function () {
                 let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
                 if (scrollTop > lastScrollTop) {
                     navbar.style.transform = "translateY(-100%)";
                     carousel.style.display = "none";
@@ -113,30 +116,22 @@
                 lastScrollTop = scrollTop;
             });
 
-            const faqResponses = {
-                "portfolio": ["You can find my portfolio under the Portfolio section.", "Check out my latest works in the Portfolio section above!"],
-                "contact": ["Reach me via the Contact section.", "You can email me or use the contact form in the Contact section."],
-                "products": ["My products are listed in the Products section.", "Find all my digital assets and merch in the Products section."]
-            };
-
-            chatbotInput.addEventListener("keypress", function (event) {
-                if (event.key === "Enter") {
-                    let userQuestion = chatbotInput.value.toLowerCase();
-                    chatbotInput.value = "";
-                    chatBody.innerHTML += `<p><strong>You:</strong> ${userQuestion}</p>`;
-                    
-                    let responseFound = false;
-                    for (let key in faqResponses) {
-                        if (userQuestion.includes(key)) {
-                            responseFound = true;
-                            faqResponses[key].forEach(response => {
-                                chatBody.innerHTML += `<p><strong>Bot:</strong> ${response}</p>`;
-                            });
+            searchInput.addEventListener("input", function () {
+                let query = searchInput.value.toLowerCase();
+                searchResults.innerHTML = "";
+                if (query.length > 1) {
+                    document.querySelectorAll(".portfolio-item").forEach(img => {
+                        if (img.alt.toLowerCase().includes(query)) {
+                            let resultItem = document.createElement("div");
+                            resultItem.className = "search-result-item p-2 border-bottom";
+                            resultItem.innerHTML = `<img src="${img.src}" class="img-thumbnail" width="50"> ${img.alt}`;
+                            resultItem.onclick = () => alert(img.dataset.info);
+                            searchResults.appendChild(resultItem);
                         }
-                    }
-                    if (!responseFound) {
-                        chatBody.innerHTML += `<p><strong>Bot:</strong> I'm not sure, but I'll update my knowledge soon!</p>`;
-                    }
+                    });
+                    searchResults.classList.remove("d-none");
+                } else {
+                    searchResults.classList.add("d-none");
                 }
             });
         });
