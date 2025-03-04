@@ -3,116 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberpunk Portfolio</title>
+    <title>ByteTard Portfolio</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script defer src="script.js"></script>
+    <style>
+        body { background-color: black; color: white; text-align: center; }
+        .navbar { transition: transform 0.3s; }
+        .portfolio-item { width: 100%; height: auto; }
+        .search-results { max-height: 200px; overflow-y: auto; position: absolute; z-index: 1000; }
+        .chatbot { position: fixed; bottom: 80px; left: 20px; background: #222; padding: 10px; border-radius: 5px; display: none; }
+        .chat-toggle { position: fixed; bottom: 20px; left: 20px; background: #ff00ff; color: white; border: none; padding: 10px; cursor: pointer; }
+        #scrollTop { position: fixed; bottom: 20px; right: 20px; background: #ff00ff; color: white; border: none; padding: 10px; cursor: pointer; display: none; }
+    </style>
 </head>
-<body class="dark-mode">
-    <!-- Carousel -->
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="image1.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="image2.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="image3.jpg" class="d-block w-100" alt="...">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        </button>
-    </div>
-
-    <!-- Navbar -->
+<body>
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Cyberpunk Portfolio</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#">ByteTard Portfolio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/main">Main</a></li>
                     <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                     <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
                 <form class="d-flex position-relative">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                    <input class="form-control me-2" type="search" placeholder="Search" id="searchInput">
                     <button class="btn btn-outline-light" type="button" id="searchBtn">Search</button>
-                    <div id="searchResults" class="search-results position-absolute w-100 bg-dark text-light d-none"></div>
+                    <div id="searchResults" class="search-results bg-dark text-light d-none"></div>
                 </form>
             </div>
         </div>
     </nav>
-
-    <!-- Animated Background -->
-    <div class="animated-bg"></div>
-
-    <!-- Main Content -->
-    <div class="container text-center mt-5">
-        <section id="hero">
-            <h1 class="glitch">Welcome to My Digital Domain</h1>
-            <p class="neon-text">Neon dreams, glitching realities, and futuristic visions.</p>
-        </section>
-
+    <div class="container mt-5">
         <section id="portfolio">
-            <h2 class="glitch">My Work</h2>
-            <p>Showcasing my best pieces...</p>
+            <h2>My Work</h2>
             <div class="row">
-                <div class="col-md-4"><img src="Rage-Goat.jpg" class="img-fluid portfolio-item" alt="Filler 1" data-info="Artwork 1 description"></div>
-                <div class="col-md-4"><img src="filler2.jpg" class="img-fluid portfolio-item" alt="Filler 2" data-info="Artwork 2 description"></div>
-                <div class="col-md-4"><img src="filler3.jpg" class="img-fluid portfolio-item" alt="Filler 3" data-info="Artwork 3 description"></div>
-                <div class="col-md-4"><img src="filler4.jpg" class="img-fluid portfolio-item" alt="Filler 4" data-info="Artwork 4 description"></div>
-                <div class="col-md-4"><img src="filler5.jpg" class="img-fluid portfolio-item" alt="Filler 5" data-info="Artwork 5 description"></div>
-                <div class="col-md-4"><img src="filler6.jpg" class="img-fluid portfolio-item" alt="Filler 6" data-info="Artwork 6 description"></div>
+                <div class="col-md-4"><img src="Rage-Goat.jpg" class="portfolio-item" alt="Raging Goat 1" data-info="Artwork 1 Raging Goat Dripping"></div>
+                <div class="col-md-4"><img src="filler2.jpg" class="portfolio-item" alt="Filler 2" data-info="Artwork 2 description"></div>
+                <div class="col-md-4"><img src="filler3.jpg" class="portfolio-item" alt="Filler 3" data-info="Artwork 3 description"></div>
             </div>
         </section>
-
-        <section id="about">
-            <h2 class="glitch">About Me</h2>
-            <p>A digital artist with a cyberpunk obsession.</p>
-        </section>
     </div>
-
-    <!-- FAQ Chatbot Toggle Button -->
     <button id="chatToggle" class="chat-toggle">❔ FAQ</button>
-
-    <!-- FAQ Chatbot -->
-    <div id="chatbot" class="chatbot hidden">
-        <div class="chat-header">Interactive FAQ</div>
-        <div class="chat-body" id="chatBody"></div>
+    <div id="chatbot" class="chatbot">
+        <div>Interactive FAQ</div>
         <input type="text" id="chatInput" placeholder="Ask me anything...">
     </div>
-
-    <!-- Scroll to Top Button -->
     <button id="scrollTop">▲</button>
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let lastScrollTop = 0;
             const navbar = document.getElementById("navbar");
-            const carousel = document.getElementById("carouselExample");
             const searchInput = document.getElementById("searchInput");
             const searchResults = document.getElementById("searchResults");
+            const chatToggle = document.getElementById("chatToggle");
+            const chatbot = document.getElementById("chatbot");
 
             window.addEventListener("scroll", function () {
                 let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                if (scrollTop > lastScrollTop) {
-                    navbar.style.transform = "translateY(-100%)";
-                    carousel.style.display = "none";
-                } else {
-                    navbar.style.transform = "translateY(0)";
-                    carousel.style.display = "block";
-                }
+                navbar.style.transform = scrollTop > lastScrollTop ? "translateY(-100%)" : "translateY(0)";
                 lastScrollTop = scrollTop;
             });
 
@@ -123,7 +76,6 @@
                     document.querySelectorAll(".portfolio-item").forEach(img => {
                         if (img.alt.toLowerCase().includes(query)) {
                             let resultItem = document.createElement("div");
-                            resultItem.className = "search-result-item p-2 border-bottom";
                             resultItem.innerHTML = `<img src="${img.src}" class="img-thumbnail" width="50"> ${img.alt}`;
                             resultItem.onclick = () => alert(img.dataset.info);
                             searchResults.appendChild(resultItem);
@@ -133,6 +85,10 @@
                 } else {
                     searchResults.classList.add("d-none");
                 }
+            });
+
+            chatToggle.addEventListener("click", function () {
+                chatbot.style.display = chatbot.style.display === "block" ? "none" : "block";
             });
         });
     </script>
