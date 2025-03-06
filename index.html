@@ -10,21 +10,21 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
         body { 
             background-color: black; 
-            color: #0ff; 
+            color: #ff007f; 
             text-align: center; 
             font-family: 'Orbitron', sans-serif;
         }
         .navbar { 
             transition: transform 0.3s;
             background: rgba(0, 0, 0, 0.8) !important;
-            box-shadow: 0 0 10px #0ff;
+            box-shadow: 0 0 10px #ff007f;
         }
         .navbar-brand, .nav-link { 
-            color: #0ff !important;
+            color: #ff007f !important;
             transition: 0.3s;
         }
         .nav-link:hover { 
-            text-shadow: 0 0 10px #0ff;
+            text-shadow: 0 0 10px #ff007f;
             transform: scale(1.1);
         }
         .portfolio-item { width: 100%; height: auto; }
@@ -34,8 +34,8 @@
             position: absolute; 
             z-index: 1000; 
             background: black;
-            border: 1px solid #0ff;
-            box-shadow: 0 0 10px #0ff;
+            border: 1px solid #ff007f;
+            box-shadow: 0 0 10px #ff007f;
             padding: 10px;
         }
         .chatbot { 
@@ -43,36 +43,59 @@
             bottom: 80px; 
             left: 20px; 
             background: rgba(0, 0, 0, 0.9); 
-            color: #0ff;
+            color: #ff007f;
             padding: 15px; 
             border-radius: 10px; 
-            box-shadow: 0 0 10px #0ff;
+            box-shadow: 0 0 10px #ff007f;
             display: none; 
         }
         .chat-toggle { 
             position: fixed; 
             bottom: 20px; 
             left: 20px; 
-            background: #0ff; 
+            background: #ff007f; 
             color: black; 
             border: none; 
             padding: 10px; 
             cursor: pointer; 
             font-weight: bold;
-            box-shadow: 0 0 10px #0ff;
+            box-shadow: 0 0 10px #ff007f;
         }
         #scrollTop { 
             position: fixed; 
             bottom: 20px; 
             right: 20px; 
-            background: #0ff; 
+            background: #ff007f; 
             color: black; 
             border: none; 
             padding: 10px; 
             cursor: pointer; 
             display: none; 
             font-weight: bold;
-            box-shadow: 0 0 10px #0ff;
+            box-shadow: 0 0 10px #ff007f;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: black;
+            color: #ff007f;
+            padding: 20px;
+            border: 2px solid #ff007f;
+            box-shadow: 0 0 10px #ff007f;
+        }
+        .popup .close-btn {
+            cursor: pointer;
+            color: white;
+            font-size: 20px;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+        #contact {
+            display: none;
         }
     </style>
 </head>
@@ -87,13 +110,8 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="#hero">Main</a></li>
                     <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="showContact()">Contact</a></li>
                 </ul>
-                <form class="d-flex position-relative">
-                    <input class="form-control me-2" type="search" placeholder="Search" id="searchInput">
-                    <button class="btn btn-outline-light" type="button" id="searchBtn">Search</button>
-                    <div id="searchResults" class="search-results d-none"></div>
-                </form>
             </div>
         </div>
     </nav>
@@ -101,18 +119,40 @@
         <section id="portfolio">
             <h2>My Work</h2>
             <div class="row">
-                <div class="col-md-4"><img src="filler1.jpg" class="portfolio-item" alt="Filler 1" data-info="Artwork 1 description"></div>
-                <div class="col-md-4"><img src="filler2.jpg" class="portfolio-item" alt="Filler 2" data-info="Artwork 2 description"></div>
-                <div class="col-md-4"><img src="filler3.jpg" class="portfolio-item" alt="Filler 3" data-info="Artwork 3 description"></div>
+                <div class="col-md-4"><img src="filler7.jpg" class="portfolio-item" alt="Filler 7"></div>
+                <div class="col-md-4"><img src="filler8.jpg" class="portfolio-item" alt="Filler 8"></div>
+                <div class="col-md-4"><img src="filler9.jpg" class="portfolio-item" alt="Filler 9"></div>
             </div>
+        </section>
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <div class="row">
+                <div class="col-md-4">Staff 1</div>
+                <div class="col-md-4">Staff 2</div>
+                <div class="col-md-4">Staff 3</div>
+            </div>
+            <button onclick="hideContact()">Close</button>
         </section>
     </div>
     <button id="chatToggle" class="chat-toggle">❔ FAQ</button>
     <div id="chatbot" class="chatbot">
-        <div>Interactive FAQ</div>
         <input type="text" id="chatInput" placeholder="Ask me anything...">
         <div id="faqResults"></div>
     </div>
     <button id="scrollTop">▲</button>
+    <div id="popup" class="popup">
+        <span class="close-btn" onclick="closePopup()">❌</span>
+        Use code CYBER20 for 20% off!
+    </div>
+    <script>
+        function showContact() { document.getElementById('contact').style.display = 'block'; }
+        function hideContact() { document.getElementById('contact').style.display = 'none'; }
+        document.getElementById('chatToggle').addEventListener('click', function() {
+            document.getElementById('chatbot').style.display = 
+                document.getElementById('chatbot').style.display === 'none' ? 'block' : 'none';
+        });
+        function closePopup() { document.getElementById('popup').style.display = 'none'; }
+        setTimeout(() => { document.getElementById('popup').style.display = 'block'; }, 5000);
+    </script>
 </body>
 </html>
