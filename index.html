@@ -3,48 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ByteTard Portfolio</title>
+    <title>Cyberpunk Portfolio</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        body { background-color: black; color: white; text-align: center; }
-        .navbar { transition: transform 0.3s; }
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        body { 
+            background-color: black; 
+            color: #0ff; 
+            text-align: center; 
+            font-family: 'Orbitron', sans-serif;
+        }
+        .navbar { 
+            transition: transform 0.3s;
+            background: rgba(0, 0, 0, 0.8) !important;
+            box-shadow: 0 0 10px #0ff;
+        }
+        .navbar-brand, .nav-link { 
+            color: #0ff !important;
+            transition: 0.3s;
+        }
+        .nav-link:hover { 
+            text-shadow: 0 0 10px #0ff;
+            transform: scale(1.1);
+        }
         .portfolio-item { width: 100%; height: auto; }
-        .search-results { max-height: 200px; overflow-y: auto; position: absolute; z-index: 1000; }
-        .chatbot { position: fixed; bottom: 80px; left: 20px; background: #222; padding: 10px; border-radius: 5px; display: none; }
-        .chat-toggle { position: fixed; bottom: 20px; left: 20px; background: #ff00ff; color: white; border: none; padding: 10px; cursor: pointer; }
-        #scrollTop { position: fixed; bottom: 20px; right: 20px; background: #ff00ff; color: white; border: none; padding: 10px; cursor: pointer; display: none; }
+        .search-results { 
+            max-height: 200px; 
+            overflow-y: auto; 
+            position: absolute; 
+            z-index: 1000; 
+            background: black;
+            border: 1px solid #0ff;
+            box-shadow: 0 0 10px #0ff;
+            padding: 10px;
+        }
+        .chatbot { 
+            position: fixed; 
+            bottom: 80px; 
+            left: 20px; 
+            background: rgba(0, 0, 0, 0.9); 
+            color: #0ff;
+            padding: 15px; 
+            border-radius: 10px; 
+            box-shadow: 0 0 10px #0ff;
+            display: none; 
+        }
+        .chat-toggle { 
+            position: fixed; 
+            bottom: 20px; 
+            left: 20px; 
+            background: #0ff; 
+            color: black; 
+            border: none; 
+            padding: 10px; 
+            cursor: pointer; 
+            font-weight: bold;
+            box-shadow: 0 0 10px #0ff;
+        }
+        #scrollTop { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            background: #0ff; 
+            color: black; 
+            border: none; 
+            padding: 10px; 
+            cursor: pointer; 
+            display: none; 
+            font-weight: bold;
+            box-shadow: 0 0 10px #0ff;
+        }
     </style>
 </head>
 <body>
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">ByteTard Portfolio</a>
+            <a class="navbar-brand" href="#">Cyberpunk Portfolio</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="/main">Main</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#hero">Main</a></li>
                     <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
                 <form class="d-flex position-relative">
                     <input class="form-control me-2" type="search" placeholder="Search" id="searchInput">
                     <button class="btn btn-outline-light" type="button" id="searchBtn">Search</button>
-                    <div id="searchResults" class="search-results bg-dark text-light d-none"></div>
+                    <div id="searchResults" class="search-results d-none"></div>
                 </form>
             </div>
         </div>
     </nav>
     <div class="container mt-5">
         <section id="portfolio">
-            <h2>Finished Projects</h2>
+            <h2>My Work</h2>
             <div class="row">
-                <div class="col-md-4"><img src="Rage-Goat.jpg" class="portfolio-item" alt="Raging Giat" data-info="Artwork:Raging Goat Dripping Hard"></div>
-                <!--div class="col-md-4"><img src="filler2.jpg" class="portfolio-item" alt="Filler 2" data-info="Artwork 2 description"></div>
-                <div class="col-md-4"><img src="filler3.jpg" class="portfolio-item" alt="Filler 3" data-info="Artwork 3 description"></div-->
+                <div class="col-md-4"><img src="filler1.jpg" class="portfolio-item" alt="Filler 1" data-info="Artwork 1 description"></div>
+                <div class="col-md-4"><img src="filler2.jpg" class="portfolio-item" alt="Filler 2" data-info="Artwork 2 description"></div>
+                <div class="col-md-4"><img src="filler3.jpg" class="portfolio-item" alt="Filler 3" data-info="Artwork 3 description"></div>
             </div>
         </section>
     </div>
@@ -55,65 +114,5 @@
         <div id="faqResults"></div>
     </div>
     <button id="scrollTop">▲</button>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let lastScrollTop = 0;
-            const navbar = document.getElementById("navbar");
-            const searchInput = document.getElementById("searchInput");
-            const searchResults = document.getElementById("searchResults");
-            const chatToggle = document.getElementById("chatToggle");
-            const chatbot = document.getElementById("chatbot");
-            const chatInput = document.getElementById("chatInput");
-            const faqResults = document.getElementById("faqResults");
-
-            const faqData = [
-                { question: "How are these pieces made?", answer: "Each piece has a different story. The normale proccess is just brainstorming, sometimes doodling. Then photo scan or google search for ideas. Then play with placing and colors in either Illustrator or Photoshop!" },
-                { question: "What software do you use?", answer: "I use Adobe Illustrator, Photoshop, and Dreamweaver for my creations." },
-                { question: "Do you take commissions?", answer: "Yes! Contact me through the Contact section for commission inquiries." }
-            ];
-
-            chatInput.addEventListener("input", function () {
-                let query = chatInput.value.toLowerCase();
-                faqResults.innerHTML = "";
-                if (query.length > 1) {
-                    faqData.forEach(faq => {
-                        if (faq.question.toLowerCase().includes(query)) {
-                            let resultItem = document.createElement("div");
-                            resultItem.textContent = faq.answer;
-                            faqResults.appendChild(resultItem);
-                        }
-                    });
-                }
-            });
-
-            window.addEventListener("scroll", function () {
-                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                navbar.style.transform = scrollTop > lastScrollTop ? "translateY(-100%)" : "translateY(0)";
-                lastScrollTop = scrollTop;
-            });
-
-            searchInput.addEventListener("input", function () {
-                let query = searchInput.value.toLowerCase();
-                searchResults.innerHTML = "";
-                if (query.length > 1) {
-                    document.querySelectorAll(".portfolio-item").forEach(img => {
-                        if (img.alt.toLowerCase().includes(query)) {
-                            let resultItem = document.createElement("div");
-                            resultItem.innerHTML = `<img src="${img.src}" class="img-thumbnail" width="50"> ${img.alt}`;
-                            resultItem.onclick = () => alert(img.dataset.info);
-                            searchResults.appendChild(resultItem);
-                        }
-                    });
-                    searchResults.classList.remove("d-none");
-                } else {
-                    searchResults.classList.add("d-none");
-                }
-            });
-
-            chatToggle.addEventListener("click", function () {
-                chatbot.style.display = chatbot.style.display === "block" ? "none" : "block";
-            });
-        });
-    </script>
 </body>
 </html>
