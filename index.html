@@ -43,14 +43,36 @@
         .navbar {
             background: rgba(0, 0, 0, 0.9) !important;
             box-shadow: 0 0 15px #ff1a1a;
+            border-bottom: 2px solid #ff4d4d;
+            padding: 1rem;
         }
-        .navbar-brand, .nav-link {
+        .navbar-brand {
             color: #ff4d4d !important;
+            font-family: 'Creepster', cursive;
+            text-shadow: 0 0 10px #ff1a1a;
+            transition: 0.3s;
+        }
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        .nav-link {
+            color: #ff4d4d !important;
+            position: relative;
+            padding: 0.5rem 1rem;
             transition: 0.3s;
         }
         .nav-link:hover {
             text-shadow: 0 0 10px #ff1a1a;
             transform: scale(1.1);
+            animation: glitch 0.3s linear infinite;
+        }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
         }
         .portfolio-item {
             width: 100%;
@@ -137,6 +159,30 @@
         #contact {
             display: none;
         }
+        .search-bar {
+            margin: 2rem auto;
+            width: 50%;
+            max-width: 500px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #ff4d4d;
+            color: #ff4d4d;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 0 10px #ff1a1a;
+            transition: 0.3s;
+        }
+        .search-bar input:focus {
+            outline: none;
+            border-color: #ff1a1a;
+            box-shadow: 0 0 15px #ff4d4d;
+        }
+        .search-bar input::placeholder {
+            color: #ff4d4d;
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
@@ -154,12 +200,15 @@
     </nav>
 
     <div class="container mt-5">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search portfolio..." onkeyup="searchPortfolio()">
+        </div>
         <section id="portfolio">
             <h2>My Work</h2>
-            <div class="row">
-                <div class="col-md-4"><img src="Rage-Goat.jpg" class="portfolio-item" alt="Filler 7"></div>
-                <div class="col-md-4"><img src="/portfolio/Rage-Goat.jpg" class="portfolio-item" alt="Filler 8"></div>
-                <div class="col-md-4"><img src="filler9.jpg" class="portfolio-item" alt="Filler 9"></div>
+            <div class="row" id="portfolioItems">
+                <div class="col-md-4"><img src="Rage-Goat.jpg" class="portfolio-item" alt="Cyberpunk Rage Goat"></div>
+                <div class="col-md-4"><img src="/portfolio/Rage-Goat.jpg" class="portfolio-item" alt="Neon Ghoul Art"></div>
+                <div class="col-md-4"><img src="filler9.jpg" class="portfolio-item" alt="Tokyo Ghoul Mask"></div>
             </div>
         </section>
 
@@ -227,6 +276,20 @@
                 resultsDiv.innerHTML = `<p>${answer}</p>`;
                 resultsDiv.style.color = '#ff4d4d';
             }
+        }
+
+        // Search functionality
+        function searchPortfolio() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.portfolio-item');
+            items.forEach(item => {
+                const altText = item.getAttribute('alt').toLowerCase();
+                if (altText.includes(input)) {
+                    item.parentElement.style.display = 'block';
+                } else {
+                    item.parentElement.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>
