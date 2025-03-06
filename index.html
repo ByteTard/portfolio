@@ -3,76 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberpunk Portfolio</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Cyberpunk x Tokyo Ghoul Portfolio</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-        body { 
-            background-color: black; 
-            color: #ff007f; 
-            text-align: center; 
+        /* Simplified Bootstrap CSS */
+        :root {
+            --bs-blue: #0d6efd;
+            --bs-primary: #0d6efd;
+            --bs-secondary: #6c757d;
+            --bs-success: #198754;
+            --bs-danger: #dc3545;
+            --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .container { width: 100%; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto; max-width: 1140px; }
+        .row { display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; }
+        .col-md-4 { flex: 0 0 33.333333%; max-width: 33.333333%; padding-right: 15px; padding-left: 15px; }
+        .navbar { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding: 0.5rem 1rem; }
+        .navbar-brand { font-size: 1.25rem; margin-right: 1rem; }
+        .navbar-nav { display: flex; flex-direction: row; list-style: none; }
+        .nav-item { margin-left: 1rem; }
+        .nav-link { color: inherit; text-decoration: none; }
+        .navbar-collapse { flex-grow: 1; }
+        .fixed-top { position: fixed; top: 0; right: 0; left: 0; z-index: 1030; }
+        .mt-5 { margin-top: 3rem; }
+
+        /* Custom Cyberpunk x Tokyo Ghoul Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Orbitron:wght@400;700&display=swap');
+        body {
+            background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png'), linear-gradient(135deg, #1a0000, #0d001a);
+            color: #ff4d4d;
+            text-align: center;
             font-family: 'Orbitron', sans-serif;
         }
-        .navbar { 
-            transition: transform 0.3s;
-            background: rgba(0, 0, 0, 0.8) !important;
-            box-shadow: 0 0 10px #ff007f;
+        h1, h2, h3 {
+            font-family: 'Creepster', cursive;
+            color: #ff1a1a;
+            text-shadow: 0 0 10px #ff4d4d;
         }
-        .navbar-brand, .nav-link { 
-            color: #ff007f !important;
+        .navbar {
+            background: rgba(0, 0, 0, 0.9) !important;
+            box-shadow: 0 0 15px #ff1a1a;
+        }
+        .navbar-brand, .nav-link {
+            color: #ff4d4d !important;
             transition: 0.3s;
         }
-        .nav-link:hover { 
-            text-shadow: 0 0 10px #ff007f;
+        .nav-link:hover {
+            text-shadow: 0 0 10px #ff1a1a;
             transform: scale(1.1);
         }
-        .portfolio-item { width: 100%; height: auto; }
-        .search-results { 
-            max-height: 200px; 
-            overflow-y: auto; 
-            position: absolute; 
-            z-index: 1000; 
-            background: black;
-            border: 1px solid #ff007f;
-            box-shadow: 0 0 10px #ff007f;
+        .portfolio-item {
+            width: 100%;
+            height: auto;
+            transition: 0.3s;
+            position: relative;
+        }
+        .portfolio-item:hover {
+            filter: brightness(0.7);
+        }
+        .portfolio-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('mask.png') center/contain no-repeat;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .portfolio-item:hover::after {
+            opacity: 0.3;
+        }
+        .chatbot {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.95);
+            color: #ff4d4d;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #ff1a1a;
+            display: none;
+        }
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #ff1a1a;
+            color: black;
+            border: none;
             padding: 10px;
-        }
-        .chatbot { 
-            position: fixed; 
-            bottom: 80px; 
-            left: 20px; 
-            background: rgba(0, 0, 0, 0.9); 
-            color: #ff007f;
-            padding: 15px; 
-            border-radius: 10px; 
-            box-shadow: 0 0 10px #ff007f;
-            display: none; 
-        }
-        .chat-toggle { 
-            position: fixed; 
-            bottom: 20px; 
-            left: 20px; 
-            background: #ff007f; 
-            color: black; 
-            border: none; 
-            padding: 10px; 
-            cursor: pointer; 
+            cursor: pointer;
             font-weight: bold;
-            box-shadow: 0 0 10px #ff007f;
+            box-shadow: 0 0 10px #ff4d4d;
         }
-        #scrollTop { 
-            position: fixed; 
-            bottom: 20px; 
-            right: 20px; 
-            background: #ff007f; 
-            color: black; 
-            border: none; 
-            padding: 10px; 
-            cursor: pointer; 
-            display: none; 
+        #scrollTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff1a1a;
+            color: black;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            display: none;
             font-weight: bold;
-            box-shadow: 0 0 10px #ff007f;
+            box-shadow: 0 0 10px #ff4d4d;
         }
         .popup {
             display: none;
@@ -80,11 +120,11 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: black;
-            color: #ff007f;
+            background: rgba(0, 0, 0, 0.95);
+            color: #ff4d4d;
             padding: 20px;
-            border: 2px solid #ff007f;
-            box-shadow: 0 0 10px #ff007f;
+            border: 2px solid #ff1a1a;
+            box-shadow: 0 0 15px #ff1a1a;
         }
         .popup .close-btn {
             cursor: pointer;
@@ -102,11 +142,8 @@
 <body>
     <nav id="navbar" class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Cyberpunk Portfolio</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <a class="navbar-brand" href="#">Cyberpunk x Tokyo Ghoul Portfolio</a>
+            <div class="navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="#hero">Main</a></li>
                     <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
@@ -115,6 +152,7 @@
             </div>
         </div>
     </nav>
+
     <div class="container mt-5">
         <section id="portfolio">
             <h2>My Work</h2>
@@ -124,6 +162,7 @@
                 <div class="col-md-4"><img src="filler9.jpg" class="portfolio-item" alt="Filler 9"></div>
             </div>
         </section>
+
         <section id="contact">
             <h2>Contact Us</h2>
             <div class="row">
@@ -134,25 +173,61 @@
             <button onclick="hideContact()">Close</button>
         </section>
     </div>
+
     <button id="chatToggle" class="chat-toggle">❔ FAQ</button>
     <div id="chatbot" class="chatbot">
-        <input type="text" id="chatInput" placeholder="Ask me anything...">
+        <input type="text" id="chatInput" placeholder="Ask me anything..." onkeyup="handleFAQ(event)">
         <div id="faqResults"></div>
     </div>
+
     <button id="scrollTop">▲</button>
     <div id="popup" class="popup">
         <span class="close-btn" onclick="closePopup()">❌</span>
-        Use code CYBER20 for 20% off!
+        Use code GHOUL20 for 20% off!
     </div>
+
     <script>
-        function showContact() { document.getElementById('contact').style.display = 'block'; }
-        function hideContact() { document.getElementById('contact').style.display = 'none'; }
+        function showContact() {
+            document.getElementById('contact').style.display = 'block';
+        }
+        function hideContact() {
+            document.getElementById('contact').style.display = 'none';
+        }
         document.getElementById('chatToggle').addEventListener('click', function() {
-            document.getElementById('chatbot').style.display = 
-                document.getElementById('chatbot').style.display === 'none' ? 'block' : 'none';
+            const chatbot = document.getElementById('chatbot');
+            chatbot.style.display = chatbot.style.display === 'none' ? 'block' : 'none';
         });
-        function closePopup() { document.getElementById('popup').style.display = 'none'; }
-        setTimeout(() => { document.getElementById('popup').style.display = 'block'; }, 5000);
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+        setTimeout(() => {
+            document.getElementById('popup').style.display = 'block';
+        }, 5000);
+
+        // Predefined FAQ data
+        const faqData = {
+            "what is this portfolio?": "A cyberpunk and Tokyo Ghoul-inspired showcase of my work.",
+            "how do i contact you?": "Click 'Contact' in the navbar for staff details.",
+            "what’s the discount code?": "Use GHOUL20 for 20% off!",
+            "default": "I don’t have an answer for that. Try something else!"
+        };
+
+        // FAQ handler
+        function handleFAQ(event) {
+            const input = document.getElementById('chatInput').value.toLowerCase().trim();
+            const resultsDiv = document.getElementById('faqResults');
+            if (event.key === 'Enter' && input) {
+                let answer = faqData["default"];
+                for (let question in faqData) {
+                    if (input.includes(question)) {
+                        answer = faqData[question];
+                        break;
+                    }
+                }
+                resultsDiv.innerHTML = `<p>${answer}</p>`;
+                resultsDiv.style.color = '#ff4d4d';
+            }
+        }
     </script>
 </body>
 </html>
