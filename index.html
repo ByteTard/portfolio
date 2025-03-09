@@ -3,95 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberpunk x Tokyo Ghoul Portfolio</title>
+    <title>Cyberpunk Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        /* Simplified Bootstrap CSS */
-        :root {
-            --bs-blue: #0d6efd;
-            --bs-primary: #0d6efd;
-            --bs-secondary: #6c757d;
-            --bs-success: #198754;
-            --bs-danger: #dc3545;
-            --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        .container { width: 100%; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto; max-width: 1140px; }
-        .row { display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; }
-        .col-md-4 { flex: 0 0 33.333333%; max-width: 33.333333%; padding-right: 15px; padding-left: 15px; }
-        .navbar { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding: 0.5rem 1rem; }
-        .navbar-brand { font-size: 1.25rem; margin-right: 1rem; }
-        .navbar-nav { display: flex; flex-direction: row; list-style: none; }
-        .nav-item { margin-left: 1rem; }
-        .nav-link { color: inherit; text-decoration: none; }
-        .navbar-collapse { flex-grow: 1; }
-        .fixed-top { position: fixed; top: 0; right: 0; left: 0; z-index: 1030; }
-        .mt-5 { margin-top: 3rem; }
-
-        /* Custom Cyberpunk x Tokyo Ghoul Styles */
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@600&display=swap');
-        body {
-            background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png'), linear-gradient(135deg, #1a0000, #0d001a);
-            color: #ff4d4d;
-            text-align: center;
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        body { 
+            background-color: black; 
+            color: #ff007f; 
+            text-align: center; 
             font-family: 'Orbitron', sans-serif;
         }
-        h1, h2, h3 {
-            font-family: 'Rajdhani', sans-serif;
-            color: #ff1a1a;
-            text-shadow: 0 0 10px #ff4d4d;
-            font-weight: 600;
+        .navbar { 
+            transition: transform 0.3s;
+            background: rgba(0, 0, 0, 0.8) !important;
+            box-shadow: 0 0 10px #ff007f;
         }
-        .navbar {
-            background: linear-gradient(90deg, rgba(255, 26, 26, 0.2), rgba(77, 0, 77, 0.2)) !important;
-            box-shadow: 0 0 20px rgba(255, 26, 26, 0.5);
-            border-bottom: 3px solid #ff4d4d;
-            padding: 1.2rem;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 20px rgba(255, 26, 26, 0.5); }
-            50% { box-shadow: 0 0 30px rgba(255, 26, 26, 0.7); }
-            100% { box-shadow: 0 0 20px rgba(255, 26, 26, 0.5); }
-        }
-        .navbar-brand {
-            color: #ff4d4d !important;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.5rem;
-            text-shadow: 0 0 10px #ff1a1a;
+        .navbar-brand, .nav-link { 
+            color: #ff007f !important;
             transition: 0.3s;
         }
-        .navbar-brand:hover {
-            transform: scale(1.05);
-            text-shadow: 0 0 15px #ff1a1a;
-        }
-        .nav-link {
-            color: #ff4d4d !important;
-            position: relative;
-            padding: 0.5rem 1rem;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.2rem;
-            transition: 0.3s;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            background: #ff1a1a;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        .nav-link:hover {
-            text-shadow: 0 0 10px #ff1a1a;
+        .nav-link:hover { 
+            text-shadow: 0 0 10px #ff007f;
             transform: scale(1.1);
-            animation: glitch 0.3s linear infinite;
         }
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+        .portfolio-item { width: 100%; height: auto; }
+        .search-results { 
+            max-height: 200px; 
+            overflow-y: auto; 
+            position: absolute; 
+            z-index: 1000; 
+            background: black;
+            border: 1px solid #ff007f;
+            box-shadow: 0 0 10px #ff007f;
+            padding: 10px;
+        }
+        .chatbot { 
+            position: fixed; 
+            bottom: 80px; 
+            left: 20px; 
+            background: rgba(0, 0, 0, 0.9); 
+            color: #ff007f;
+            padding: 15px; 
+            border-radius: 10px; 
+            box-shadow: 0 0 10px #ff007f;
+            display: none; 
+        }
+        .chat-toggle { 
+            position: fixed; 
+            bottom: 20px; 
+            left: 20px; 
+            background: #ff007f; 
+            color: black; 
+            border: none; 
+            padding: 10px; 
+            cursor: pointer; 
+            font-weight: bold;
+            box-shadow: 0 0 10px #ff007f;
+        }
+        #scrollTop { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            background: #ff007f; 
+            color: black; 
+            border: none; 
+            padding: 10px; 
+            cursor: pointer; 
+            display: none; 
+            font-weight: bold;
+            box-shadow: 0 0 10px #ff007f;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: black;
+            color: #ff007f;
+            padding: 20px;
+            border: 2px solid #ff007f;
+            box-shadow: 0 0 10px #ff007f;
+        }
+        .popup .close-btn {
+            cursor: pointer;
+            color: white;
+            font-size: 20px;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+        #contact {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Cyberpunk Portfolio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="#hero">Main</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="showContact()">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <section id="portfolio">
+            <h2>My Work</h2>
+            <div class="row">
+                <div class="col-md-4"><img src="filler7.jpg" class="portfolio-item" alt="Filler 7"></div>
+                <div class="col-md-4"><img src="filler8.jpg" class="portfolio-item" alt="Filler 8"></div>
+                <div class="col-md-4"><img src="filler9.jpg" class="portfolio-item" alt="Filler 9"></div>
+            </div>
+        </section>
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <div class="row">
+                <div class="col-md-4">Staff 1</div>
+                <div class="col-md-4">Staff 2</div>
+                <div class="col-md-4">Staff 3</div>
+            </div>
+            <button onclick="hideContact()">Close</button>
+        </section>
+    </div>
+    <button id="chatToggle" class="chat-toggle">❔ FAQ</button>
+    <div id="chatbot" class="chatbot">
+        <input type="text" id="chatInput" placeholder="Ask me anything...">
+        <div id="faqResults"></div>
+    </div>
+    <button id="scrollTop">▲</button>
+    <div id="popup" class="popup">
+        <span class="close-btn" onclick="closePopup()">❌</span>
+        Use code CYBER20 for 20% off!
+    </div>
+    <script>
+        function showContact() { document.getElementById('contact').style.display = 'block'; }
+        function hideContact() { document.getElementById('contact').style.display = 'none'; }
+        document.getElementById('chatToggle').addEventListener('click', function() {
+            document.getElementById('chatbot').style.display = 
+                document.getElementById('chatbot').style.display === 'none' ? 'block' : 'none';
+        });
+        function closePopup() { document.getElementById('popup').style.display = 'none'; }
+        setTimeout(() => { document.getElementById('popup').style.display = 'block'; }, 5000);
+    </script>
+</body>
+</html>
