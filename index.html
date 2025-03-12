@@ -27,6 +27,9 @@
             text-shadow: 0 0 10px #ff007f;
             transform: scale(1.1);
         }
+        .nav-link.contact-link:hover { /* Added this rule */
+            cursor: pointer;
+        }
         .portfolio-item { width: 100%; height: auto; }
         .search-results { 
             max-height: 200px; 
@@ -48,6 +51,7 @@
             border-radius: 10px; 
             box-shadow: 0 0 10px #ff007f;
             display: none; 
+            width: 300px;
         }
         .chat-toggle { 
             position: fixed; 
@@ -97,6 +101,12 @@
         #contact {
             display: none;
         }
+        .highlight {
+            background-color: #ff007f;
+            color: black;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body>
@@ -110,16 +120,16 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="/main">Main</a></li>
                     <li class="nav-item"><a class="nav-link" href="#products">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link" onclick="showContact()">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link contact-link" onclick="showContact()">Contact</a></li> <!-- Added contact-link class -->
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container mt-5">
         <section id="portfolio">
-		<br>
+            <br>
             <h2>Portfolio Pieces</h2>
-			<br>
+            <br>
             <div class="row">
                 <div class="col-md-4"><img src="Rage-Goat.png" class="portfolio-item" alt="Rage Goat"></div>
                 <div class="col-md-4"><img src="BirdMan.png" class="portfolio-item" alt="Bird Man"></div>
@@ -145,29 +155,101 @@
     <div id="popup" class="popup"> 
         <span class="close-btn" onclick="closePopup()">❌</span>
         <a href="https://discord.gg/qWxFFwgMnj" target="_blank">
-    <button style="background-color: #7289DA; 
-                   color: white; 
-                   padding: 10px 20px; 
-                   border: none; 
-                   border-radius: 5px; 
-                   cursor: pointer; 
-                   font-size: 16px; 
-                   transition: background-color 0.3s;"
-                   onmouseover="this.style.backgroundColor='#677BC4'"
-                   onmouseout="this.style.backgroundColor='#7289DA'">
-        Join Our Discord
-    </button>
-</a>
+            <button style="background-color: #7289DA; 
+                           color: white; 
+                           padding: 10px 20px; 
+                           border: none; 
+                           border-radius: 5px; 
+                           cursor: pointer; 
+                           font-size: 16px; 
+                           transition: background-color 0.3s;"
+                    onmouseover="this.style.backgroundColor='#677BC4'"
+                    onmouseout="this.style.backgroundColor='#7289DA'">
+                Join Our Discord
+            </button>
+        </a>
     </div>
     <script>
+        // FAQ data - edit these as needed
+        const faqData = [
+            {
+                question: "What is your portfolio about?",
+                answer: "Our portfolio showcases digital art and creative projects."
+            },
+            {
+                question: "How can I contact you?",
+                answer: "You can contact us through the Contact section or Discord."
+            },
+            {
+                question: "What kind of art do you create?",
+                answer: "We create digital art featuring unique characters and designs."
+            }
+        ];
+
+        // Function to highlight common words
+        function highlightCommonWords(question, answer) {
+            const questionWords = question.toLowerCase().split(/\s+/);
+            const answerWords = answer.split(/\s+/);
+            return answerWords.map(word => {
+                const cleanWord = word.replace(/[^a-zA-Z0-9]/g, '');
+                if (questionWords.includes(cleanWord.toLowerCase())) {
+                    return `<span class="highlight">${word}</span>`;
+                }
+                return word;
+            }).join(' ');
+        }
+
+        // Search and display FAQ results
+        function searchFAQ(query) {
+            const resultsDiv = document.getElementById('faqResults');
+            resultsDiv.innerHTML = '';
+            
+            if (!query.trim()) return;
+
+            const matches = faqData.filter(item => 
+                item.question.toLowerCase().includes(query.toLowerCase()) ||
+                item.answer.toLowerCase().includes(query.toLowerCase())
+            );
+
+            if (matches.length === 0) {
+                resultsDiv.innerHTML = '<p>No matches found.</p>';
+                return;
+            }
+
+            matches.forEach(item => {
+                const resultDiv = document.createElement('div');
+                resultDiv.innerHTML = `
+                    <p><strong>Q: ${item.question}</strong></p>
+                    <p>A: ${highlightCommonWords(query, item.answer)}</p>
+                    <hr style="border-color: #ff007f;">
+                `;
+                resultsDiv.appendChild(resultDiv);
+            });
+        }
+
+        // Event listeners
+        document.getElementById('chatToggle').addEventListener('click', function() {
+            const chatbot = document.getElementById('chatbot');
+            chatbot.style.display = chatbot.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.getElementById('chatInput').addEventListener('input', function(e) {
+            searchFAQ(e.target.value);
+        });
+
         function showContact() { document.getElementById('contact').style.display = 'block'; }
         function hideContact() { document.getElementById('contact').style.display = 'none'; }
-        document.getElementById('chatToggle').addEventListener('click', function() {
-            document.getElementById('chatbot').style.display = 
-                document.getElementById('chatbot').style.display === 'none' ? 'block' : 'none';
-        });
         function closePopup() { document.getElementById('popup').style.display = 'none'; }
         setTimeout(() => { document.getElementById('popup').style.display = 'block'; }, 5000);
+
+        // Scroll to top functionality
+        window.onscroll = function() {
+            const scrollTopBtn = document.getElementById('scrollTop');
+            scrollTopBtn.style.display = window.scrollY > 100 ? 'block' : 'none';
+        };
+        document.getElementById('scrollTop').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
 </body>
 </html>
