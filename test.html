@@ -33,11 +33,11 @@
         .portfolio-item { 
             width: 100%; 
             height: auto; 
-            transition: transform 0.3s ease; /* Smooth hover transition */
-            cursor: pointer; /* Pointer on hover */
+            transition: transform 0.3s ease;
+            cursor: pointer;
         }
         .portfolio-item:hover { 
-            transform: scale(1.1); /* Expand on hover */
+            transform: scale(1.1);
         }
         .search-results { 
             max-height: 200px; 
@@ -115,7 +115,7 @@
             padding: 2px 5px;
             border-radius: 3px;
         }
-        /* Modal styles for enlarged image */
+        /* Updated modal styles for better image fitting */
         .image-modal {
             display: none;
             position: fixed;
@@ -127,17 +127,23 @@
             z-index: 2000;
             justify-content: center;
             align-items: center;
+            overflow: auto; /* Allow scrolling if needed */
         }
         .image-modal-content {
-            max-width: 80%;
-            max-height: 80%;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90vw; /* Use viewport width */
+            max-height: 90vh; /* Use viewport height */
+            padding: 20px;
         }
         .image-modal img {
-            width: 100%;
+            max-width: 100%;
+            max-height: 70vh; /* Limit image height to leave room for text */
             height: auto;
             border: 2px solid #ff007f;
             box-shadow: 0 0 20px #ff007f;
+            object-fit: contain; /* Ensure image scales properly */
         }
         .image-modal .info-box {
             background: rgba(0, 0, 0, 0.8);
@@ -146,9 +152,12 @@
             margin-top: 10px;
             border: 1px solid #ff007f;
             border-radius: 5px;
+            width: 100%;
+            max-width: 600px; /* Limit text box width */
+            text-align: left;
         }
         .image-modal .close-modal {
-            position: absolute;
+            position: fixed;
             top: 10px;
             right: 10px;
             color: white;
