@@ -27,7 +27,18 @@
             text-shadow: 0 0 10px #ff007f;
             transform: scale(1.1);
         }
-        .portfolio-item { width: 100%; height: auto; }
+        .nav-link.contact-link:hover { 
+            cursor: pointer;
+        }
+        .portfolio-item { 
+            width: 100%; 
+            height: auto; 
+            transition: transform 0.3s ease; /* Smooth hover transition */
+            cursor: pointer; /* Pointer on hover */
+        }
+        .portfolio-item:hover { 
+            transform: scale(1.1); /* Expand on hover */
+        }
         .search-results { 
             max-height: 200px; 
             overflow-y: auto; 
@@ -48,7 +59,7 @@
             border-radius: 10px; 
             box-shadow: 0 0 10px #ff007f;
             display: none; 
-            width: 300px; /* Added width for better layout */
+            width: 300px;
         }
         .chat-toggle { 
             position: fixed; 
@@ -104,6 +115,46 @@
             padding: 2px 5px;
             border-radius: 3px;
         }
+        /* Modal styles for enlarged image */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-modal-content {
+            max-width: 80%;
+            max-height: 80%;
+            position: relative;
+        }
+        .image-modal img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #ff007f;
+            box-shadow: 0 0 20px #ff007f;
+        }
+        .image-modal .info-box {
+            background: rgba(0, 0, 0, 0.8);
+            color: #ff007f;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ff007f;
+            border-radius: 5px;
+        }
+        .image-modal .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -117,7 +168,7 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="/main">Main</a></li>
                     <li class="nav-item"><a class="nav-link" href="#products">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link" onclick="showContact()">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link contact-link" onclick="showContact()">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -128,15 +179,15 @@
             <h2>Portfolio Pieces</h2>
             <br>
             <div class="row">
-                <div class="col-md-4"><img src="Rage-Goat.png" class="portfolio-item" alt="Rage Goat"></div>
-                <div class="col-md-4"><img src="BirdMan.png" class="portfolio-item" alt="Bird Man"></div>
-                <div class="col-md-4"><img src="BigBear.png" class="portfolio-item" alt="Big Bear"></div>
+                <div class="col-md-4"><img src="Rage-Goat.png" class="portfolio-item" alt="Rage Goat" data-info="Rage Goat - A fierce digital illustration of a goat with an attitude, created in 2023."></div>
+                <div class="col-md-4"><img src="BirdMan.png" class="portfolio-item" alt="Bird Man" data-info="Bird Man - A surreal piece featuring a humanoid bird, completed in 2022."></div>
+                <div class="col-md-4"><img src="BigBear.png" class="portfolio-item" alt="Big Bear" data-info="Big Bear - A majestic bear in a vibrant forest, drawn in 2024."></div>
             </div>
         </section>
         <section id="contact">
             <h2>Contact Us</h2>
             <div class="row">
-                <div class="col-md-4">ByteTard <img src="Nico.png" class="portfolio-item" alt="Nico"></div>
+                <div class="col-md-4">ByteTard <img src="Nico.png" class="portfolio-item" alt="Nico" data-info="Nico - The mascot of ByteTard, designed in 2021."></div>
                 <div class="col-md-4">Staff 2</div>
                 <div class="col-md-4">Staff 3</div>
             </div>
@@ -165,6 +216,13 @@
                 Join Our Discord
             </button>
         </a>
+    </div>
+    <div id="imageModal" class="image-modal">
+        <div class="image-modal-content">
+            <span class="close-modal" onclick="closeImageModal()">❌</span>
+            <img src="" alt="Enlarged Image">
+            <div class="info-box"></div>
+        </div>
     </div>
     <script>
         // FAQ data - edit these as needed
@@ -224,6 +282,20 @@
             });
         }
 
+        // Image modal functions
+        function showImageModal(src, info) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = modal.querySelector('img');
+            const infoBox = modal.querySelector('.info-box');
+            modalImg.src = src;
+            infoBox.textContent = info;
+            modal.style.display = 'flex';
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
         // Event listeners
         document.getElementById('chatToggle').addEventListener('click', function() {
             const chatbot = document.getElementById('chatbot');
@@ -232,6 +304,14 @@
 
         document.getElementById('chatInput').addEventListener('input', function(e) {
             searchFAQ(e.target.value);
+        });
+
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const src = this.src;
+                const info = this.getAttribute('data-info');
+                showImageModal(src, info);
+            });
         });
 
         function showContact() { document.getElementById('contact').style.display = 'block'; }
