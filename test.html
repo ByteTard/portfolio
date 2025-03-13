@@ -118,18 +118,19 @@
             box-shadow: 0 0 10px #ff007f;
         }
         #scrollTop { 
-            position: fixed; 
-            bottom: 20px; 
-            right: 20px; 
-            background: #ff007f; 
-            color: black; 
-            border: none; 
-            padding: 10px; 
-            cursor: pointer; 
-            display: none; 
-            font-weight: bold;
-            box-shadow: 0 0 10px #ff007f;
-        }
+			position: fixed; 
+			bottom: 20px; 
+			right: 80px; /* Adjusted to appear to the left of audio controls */
+			background: #ff007f; 
+			color: black; 
+			border: none; 
+			padding: 10px; 
+			cursor: pointer; 
+			display: none; 
+			font-weight: bold;
+			box-shadow: 0 0 10px #ff007f;
+			z-index: 1000; /* Ensure it stays above other elements */
+}
         .popup {
             display: none;
             position: fixed;
