@@ -164,6 +164,60 @@
             font-size: 30px;
             cursor: pointer;
         }
+		
+.audio-controls {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.audio-btn {
+    background: #ff007f;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 10px #ff007f;
+    border-radius: 5px;
+}
+
+.audio-slider {
+    -webkit-appearance: none;
+    width: 100px;
+    height: 5px;
+    background: #ff007f;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.audio-slider:hover {
+    opacity: 1;
+}
+
+.audio-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: black;
+    cursor: pointer;
+    border: 2px solid #ff007f;
+    border-radius: 50%;
+}
+
+.audio-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: black;
+    cursor: pointer;
+    border: 2px solid #ff007f;
+    border-radius: 50%;
+}
     </style>
 </head>
 <body>
@@ -337,6 +391,54 @@
         document.getElementById('scrollTop').addEventListener('click', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+		
+		// Audio controls
+const audio = document.getElementById('backgroundMusic');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const volumeSlider = document.getElementById('volumeSlider');
+
+// Set initial volume to 25%
+audio.volume = 0.25;
+
+// Play audio automatically when page loads
+audio.play().catch(error => {
+    console.log("Autoplay prevented:", error);
+    // If autoplay is blocked, show play button clearly
+    playPauseBtn.textContent = 'Play';
+});
+
+// Play/Pause functionality
+playPauseBtn.addEventListener('click', function() {
+    if (audio.paused) {
+        audio.play();
+        playPauseBtn.textContent = 'Pause';
+    } else {
+        audio.pause();
+        playPauseBtn.textContent = 'Play';
+    }
+});
+
+// Volume control
+volumeSlider.addEventListener('input', function() {
+    audio.volume = this.value;
+});
+
+// Update chatToggle position to avoid overlap
+document.getElementById('chatToggle').style.bottom = '60px';  // Move chat button up
     </script>
+<audio id="backgroundMusic" loop>
+    <source src="/Six-Flags.m4a" type="audio/mp4">
+    Your browser does not support the audio element.
+</audio>
+
+<div class="audio-controls">
+    <button id="playPauseBtn" class="audio-btn">Pause</button>
+    <input type="range" id="volumeSlider" class="audio-slider" min="0" max="1" step="0.01" value="0.25">
+</div>
+
+<div class="audio-controls">
+    <button id="playPauseBtn" class="audio-btn">Pause</button>
+    <input type="range" id="volumeSlider" class="audio-slider" min="0" max="1" step="0.01" value="0.25">
+</div>
 </body>
 </html>
