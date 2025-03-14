@@ -21,31 +21,28 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+            background: rgba(255, 255, 255, 0.2);
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             z-index: 999;
-            transition: all 0.3s ease; /* Smooth transition for minimize/maximize */
-            backdrop-filter: blur(5px); /* Optional: Adds a blur effect for modern look */
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
-        /* Minimized state styling */
         .audio-controls.minimized {
             padding: 5px;
-            width: 50px; /* Shrinks to a small square */
+            width: 50px;
             height: 50px;
         }
         .volume-control {
             margin-top: 10px;
         }
-        /* Ensure elements are hidden when minimized */
         .audio-controls.minimized #songTitle,
         .audio-controls.minimized #playPauseBtn,
         .audio-controls.minimized #nextBtn,
         .audio-controls.minimized .volume-control {
             display: none;
         }
-        /* Style for minimize/maximize button */
         #minMaxBtn {
             margin-left: 5px;
             padding: 2px 6px;
@@ -90,7 +87,7 @@
     </style>
 </head>
 <body>
-    <audio id="backgroundAudio" autoplay loop>
+    <audio id="backgroundAudio" autoplay>
         <source src="Kamikaze.m4a" type="audio/mp4">
         Your browser does not support the audio element.
     </audio>
@@ -125,7 +122,7 @@
             <h2>Contact Us</h2>
             <div class="row">
                 <div class="col-md-4">ByteTard <img src="Nico.png" class="portfolio-item" alt="Nico" data-info="Nico - The mascot of ByteTard, designed in 2021."></div>
-                <div class="col-md-4">Staff 2</div>
+                <div class="col-md-4:$(printf '\x0a                ')">Staff 2</div>
                 <div class="col-md-4">Staff 3</div>
             </div>
             <button onclick="hideContact()">Close</button>
@@ -220,12 +217,11 @@
         };
         document.getElementById('scrollTop').addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
     </script>
-    <!-- Audio controls section -->
     <div class="audio-controls">
         <div id="songTitle" style="margin-bottom: 10px; color: #ff007f;">Kamikaze</div>
         <button id="playPauseBtn">Pause</button>
         <button id="nextBtn">Next</button>
-        <button id="minMaxBtn">-</button> <!-- Minimize/Maximize button -->
+        <button id="minMaxBtn">-</button>
         <div class="volume-control">
             <label for="volume">Volume:</label>
             <input type="range" id="volume" min="0" max="1" step="0.1" value="1">
@@ -240,7 +236,6 @@
         const songTitle = document.getElementById('songTitle');
         const audioControls = document.querySelector('.audio-controls');
 
-        // Playlist
         const playlist = [
             { title: "Kamikaze", src: "Kamikaze.m4a" },
             { title: "Six Flags", src: "Six-Flags.m4a" },
@@ -250,17 +245,15 @@
         ];
         let currentSongIndex = 0;
 
-        // Function to update and play the current song
         function updateSong() {
             audio.src = playlist[currentSongIndex].src;
             songTitle.textContent = playlist[currentSongIndex].title;
             audio.play().catch(error => {
                 console.log("Autoplay blocked:", error);
-                playPauseBtn.textContent = 'Play'; // Reset to Play if blocked
+                playPauseBtn.textContent = 'Play';
             });
         }
 
-        // Play/Pause functionality
         playPauseBtn.addEventListener('click', function() {
             if (audio.paused) {
                 audio.play();
@@ -271,18 +264,21 @@
             }
         });
 
-        // Next song functionality
         nextBtn.addEventListener('click', function() {
             currentSongIndex = (currentSongIndex + 1) % playlist.length;
             updateSong();
         });
 
-        // Volume control
+        // Autoplay next song when current song ends
+        audio.addEventListener('ended', function() {
+            currentSongIndex = (currentSongIndex + 1) % playlist.length;
+            updateSong();
+        });
+
         volumeControl.addEventListener('input', function() {
             audio.volume = this.value;
         });
 
-        // Sync button text with play/pause state
         audio.addEventListener('play', function() {
             playPauseBtn.textContent = 'Pause';
         });
@@ -290,20 +286,18 @@
             playPauseBtn.textContent = 'Play';
         });
 
-        // Minimize/Maximize functionality
         minMaxBtn.addEventListener('click', function() {
             if (audioControls.classList.contains('minimized')) {
                 audioControls.classList.remove('minimized');
-                minMaxBtn.textContent = '-'; // Change to minimize icon
+                minMaxBtn.textContent = '-';
             } else {
                 audioControls.classList.add('minimized');
-                minMaxBtn.textContent = '+'; // Change to maximize icon
+                minMaxBtn.textContent = '+';
             }
         });
 
-        // Start audio immediately on page load
         window.addEventListener('load', function() {
-            updateSong(); // Ensure audio starts playing
+            updateSong();
         });
     </script>
 </body>
