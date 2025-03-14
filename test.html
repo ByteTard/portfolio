@@ -16,18 +16,40 @@
         scrollTitle();
     </script>
     <style>
+        /* Transparent audio controls with a subtle background */
         .audio-controls {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
             padding: 10px;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             z-index: 999;
+            transition: all 0.3s ease; /* Smooth transition for minimize/maximize */
+            backdrop-filter: blur(5px); /* Optional: Adds a blur effect for modern look */
+        }
+        /* Minimized state styling */
+        .audio-controls.minimized {
+            padding: 5px;
+            width: 50px; /* Shrinks to a small square */
+            height: 50px;
         }
         .volume-control {
             margin-top: 10px;
+        }
+        /* Ensure elements are hidden when minimized */
+        .audio-controls.minimized #songTitle,
+        .audio-controls.minimized #playPauseBtn,
+        .audio-controls.minimized #nextBtn,
+        .audio-controls.minimized .volume-control {
+            display: none;
+        }
+        /* Style for minimize/maximize button */
+        #minMaxBtn {
+            margin-left: 5px;
+            padding: 2px 6px;
+            font-size: 12px;
         }
     </style>
     <style>
@@ -116,7 +138,6 @@
     </div>
     <button id="scrollTop">▲</button>
     <div id="popup" class="popup">
-        <!-- Fixed: Changed onload to onclick -->
         <span class="close-btn" onclick="closePopup()">❌</span>
         <a href="https://discord.gg/qWxFFwgMnj" target="_blank">
             <button style="background-color: #7289DA; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: background-color 0.3s;" 
@@ -199,10 +220,12 @@
         };
         document.getElementById('scrollTop').addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
     </script>
+    <!-- Audio controls section -->
     <div class="audio-controls">
-        <div id="songTitle" style="margin-bottom: 10px;">Kamikaze</div>
+        <div id="songTitle" style="margin-bottom: 10px; color: #ff007f;">Kamikaze</div>
         <button id="playPauseBtn">Pause</button>
         <button id="nextBtn">Next</button>
+        <button id="minMaxBtn">-</button> <!-- Minimize/Maximize button -->
         <div class="volume-control">
             <label for="volume">Volume:</label>
             <input type="range" id="volume" min="0" max="1" step="0.1" value="1">
@@ -212,25 +235,32 @@
         const audio = document.getElementById('backgroundAudio');
         const playPauseBtn = document.getElementById('playPauseBtn');
         const nextBtn = document.getElementById('nextBtn');
+        const minMaxBtn = document.getElementById('minMaxBtn');
         const volumeControl = document.getElementById('volume');
         const songTitle = document.getElementById('songTitle');
+        const audioControls = document.querySelector('.audio-controls');
 
-        // Expanded playlist with more songs (replace placeholders with actual files)
+        // Playlist
         const playlist = [
             { title: "Kamikaze", src: "Kamikaze.m4a" },
-            { title: "Six Flags", src: "Six-Flags.m4a" }, // Replace with actual file
-            { title: "Bundle Of Sticks", src: "Bundle-Of-Sticks.m4a" }, // Replace with actual file
-            { title: "Division", src: "Division.m4a" }, // Replace with actual file
-            { title: "Floor It", src: "Floor-It.m4a" }  // Replace with actual file-->
+            { title: "Six Flags", src: "Six-Flags.m4a" },
+            { title: "Bundle Of Sticks", src: "Bundle-Of-Sticks.m4a" },
+            { title: "Division", src: "Division.m4a" },
+            { title: "Floor It", src: "Floor-It.m4a" }
         ];
         let currentSongIndex = 0;
 
+        // Function to update and play the current song
         function updateSong() {
             audio.src = playlist[currentSongIndex].src;
             songTitle.textContent = playlist[currentSongIndex].title;
-            audio.play().catch(() => { playPauseBtn.textContent = 'Play'; });
+            audio.play().catch(error => {
+                console.log("Autoplay blocked:", error);
+                playPauseBtn.textContent = 'Play'; // Reset to Play if blocked
+            });
         }
 
+        // Play/Pause functionality
         playPauseBtn.addEventListener('click', function() {
             if (audio.paused) {
                 audio.play();
@@ -241,17 +271,40 @@
             }
         });
 
+        // Next song functionality
         nextBtn.addEventListener('click', function() {
             currentSongIndex = (currentSongIndex + 1) % playlist.length;
             updateSong();
         });
 
-        volumeControl.addEventListener('input', function() { audio.volume = this.value; });
+        // Volume control
+        volumeControl.addEventListener('input', function() {
+            audio.volume = this.value;
+        });
 
-        audio.addEventListener('play', function() { playPauseBtn.textContent = 'Pause'; });
-        audio.addEventListener('pause', function() { playPauseBtn.textContent = 'Play'; });
+        // Sync button text with play/pause state
+        audio.addEventListener('play', function() {
+            playPauseBtn.textContent = 'Pause';
+        });
+        audio.addEventListener('pause', function() {
+            playPauseBtn.textContent = 'Play';
+        });
 
-        updateSong();
+        // Minimize/Maximize functionality
+        minMaxBtn.addEventListener('click', function() {
+            if (audioControls.classList.contains('minimized')) {
+                audioControls.classList.remove('minimized');
+                minMaxBtn.textContent = '-'; // Change to minimize icon
+            } else {
+                audioControls.classList.add('minimized');
+                minMaxBtn.textContent = '+'; // Change to maximize icon
+            }
+        });
+
+        // Start audio immediately on page load
+        window.addEventListener('load', function() {
+            updateSong(); // Ensure audio starts playing
+        });
     </script>
 </body>
 </html>
