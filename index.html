@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--title>ByteTard Portfolio</title-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	 <script>
+    <script>
         let titleText = "<--- ByteTard Portfolio --->";
         let position = 0;
         function scrollTitle() {
@@ -16,203 +15,82 @@
         }
         scrollTitle();
     </script>
-	<style>
-        /* Style for the floating control button */
+    <style>
+        /* Transparent audio controls with a subtle background */
         .audio-controls {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
             padding: 10px;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             z-index: 999;
+            transition: all 0.3s ease; /* Smooth transition for minimize/maximize */
+            backdrop-filter: blur(5px); /* Optional: Adds a blur effect for modern look */
         }
-
-        /* Style for volume slider */
+        /* Minimized state styling */
+        .audio-controls.minimized {
+            padding: 5px;
+            width: 50px; /* Shrinks to a small square */
+            height: 50px;
+        }
         .volume-control {
             margin-top: 10px;
+        }
+        /* Ensure elements are hidden when minimized */
+        .audio-controls.minimized #songTitle,
+        .audio-controls.minimized #playPauseBtn,
+        .audio-controls.minimized #nextBtn,
+        .audio-controls.minimized .volume-control {
+            display: none;
+        }
+        /* Style for minimize/maximize button */
+        #minMaxBtn {
+            margin-left: 5px;
+            padding: 2px 6px;
+            font-size: 12px;
         }
     </style>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-        body { 
-            background-color: black; 
-            color: #ff007f; 
-            text-align: center; 
-            font-family: 'Orbitron', sans-serif;
+        body { background-color: black; color: #ff007f; text-align: center; font-family: 'Orbitron', sans-serif; }
+        .navbar { transition: transform 0.3s; background: rgba(0, 0, 0, 0.8) !important; box-shadow: 0 0 10px #ff007f; }
+        .navbar-brand, .nav-link { color: #ff007f !important; transition: 0.3s; }
+        .nav-link:hover { text-shadow: 0 0 10px #ff007f; transform: scale(1.1); }
+        .nav-link.contact-link:hover { cursor: pointer; }
+        .portfolio-item { width: 100%; height: auto; transition: transform 0.3s ease; cursor: pointer; }
+        .portfolio-item:hover { transform: scale(1.1); animation: shake 0.5s infinite; }
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg) scale(1.1); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg) scale(1.1); }
+            20% { transform: translate(-3px, 0px) rotate(1deg) scale(1.1); }
+            30% { transform: translate(3px, 2px) rotate(0deg) scale(1.1); }
+            40% { transform: translate(1px, -1px) rotate(1deg) scale(1.1); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg) scale(1.1); }
+            60% { transform: translate(-3px, 1px) rotate(0deg) scale(1.1); }
+            70% { transform: translate(3px, -1px) rotate(-1deg) scale(1.1); }
+            80% { transform: translate(-1px, -2px) rotate(1deg) scale(1.1); }
+            90% { transform: translate(1px, 2px) rotate(0deg) scale(1.1); }
+            100% { transform: translate(1px, -1px) rotate(-1deg) scale(1.1); }
         }
-        .navbar { 
-            transition: transform 0.3s;
-            background: rgba(0, 0, 0, 0.8) !important;
-            box-shadow: 0 0 10px #ff007f;
-        }
-        .navbar-brand, .nav-link { 
-            color: #ff007f !important;
-            transition: 0.3s;
-        }
-        .nav-link:hover { 
-            text-shadow: 0 0 10px #ff007f;
-            transform: scale(1.1);
-        }
-        .nav-link.contact-link:hover { 
-            cursor: pointer;
-        }
-		.portfolio-item { 
-			width: 100%; 
-			height: auto; 
-			transition: transform 0.3s ease;
-			cursor: pointer;
-		}
-
-		.portfolio-item:hover { 
-			transform: scale(1.1);
-			animation: shake 0.5s infinite;
-		}
-
-/* Add this new keyframes animation */
-		@keyframes shake {
-			0% { transform: translate(1px, 1px) rotate(0deg) scale(1.1); }
-			10% { transform: translate(-1px, -2px) rotate(-1deg) scale(1.1); }
-			20% { transform: translate(-3px, 0px) rotate(1deg) scale(1.1); }
-			30% { transform: translate(3px, 2px) rotate(0deg) scale(1.1); }
-			40% { transform: translate(1px, -1px) rotate(1deg) scale(1.1); }
-			50% { transform: translate(-1px, 2px) rotate(-1deg) scale(1.1); }
-			60% { transform: translate(-3px, 1px) rotate(0deg) scale(1.1); }
-			70% { transform: translate(3px, -1px) rotate(-1deg) scale(1.1); }
-			80% { transform: translate(-1px, -2px) rotate(1deg) scale(1.1); }
-			90% { transform: translate(1px, 2px) rotate(0deg) scale(1.1); }
-			100% { transform: translate(1px, -1px) rotate(-1deg) scale(1.1); }
-		}        .search-results { 
-            max-height: 200px; 
-            overflow-y: auto; 
-            position: absolute; 
-            z-index: 1000; 
-            background: black;
-            border: 1px solid #ff007f;
-            box-shadow: 0 0 10px #ff007f;
-            padding: 10px;
-        }
-        .chatbot { 
-            position: fixed; 
-            bottom: 80px; 
-            left: 20px; 
-            background: rgba(0, 0, 0, 0.9); 
-            color: #ff007f;
-            padding: 15px; 
-            border-radius: 10px; 
-            box-shadow: 0 0 10px #ff007f;
-            display: none; 
-            width: 300px;
-        }
-        .chat-toggle { 
-            position: fixed; 
-            bottom: 20px; 
-            left: 20px; 
-            background: #ff007f; 
-            color: black; 
-            border: none; 
-            padding: 10px; 
-            cursor: pointer; 
-            font-weight: bold;
-            box-shadow: 0 0 10px #ff007f;
-        }
-        #scrollTop { 
-			position: fixed; 
-			bottom: 80px; /* Adjusted to appear above audio controls */
-			right: 20px; 
-			background: #ff007f; 
-			color: black; 
-			border: none; 
-			padding: 10px; 
-			cursor: pointer; 
-			display: none; 
-			font-weight: bold;
-			box-shadow: 0 0 10px #ff007f;
-			z-index: 1000;
-}
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: black;
-            color: #ff007f;
-            padding: 20px;
-            border: 2px solid #ff007f;
-            box-shadow: 0 0 10px #ff007f;
-        }
-        .popup .close-btn {
-            cursor: pointer;
-            color: white;
-            font-size: 20px;
-            position: absolute;
-            top: 5px;
-            right: 10px;
-        }
-        #contact {
-            display: none;
-        }
-        .highlight {
-            background-color: #ff007f;
-            color: black;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-        /* Updated modal styles for better image fitting */
-        .image-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            overflow: auto; /* Allow scrolling if needed */
-        }
-        .image-modal-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 90vw; /* Use viewport width */
-            max-height: 90vh; /* Use viewport height */
-            padding: 20px;
-        }
-        .image-modal img {
-            max-width: 100%;
-            max-height: 70vh; /* Limit image height to leave room for text */
-            height: auto;
-            border: 2px solid #ff007f;
-            box-shadow: 0 0 20px #ff007f;
-            object-fit: contain; /* Ensure image scales properly */
-        }
-        .image-modal .info-box {
-            background: rgba(0, 0, 0, 0.8);
-            color: #ff007f;
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid #ff007f;
-            border-radius: 5px;
-            width: 100%;
-            max-width: 600px; /* Limit text box width */
-            text-align: left;
-        }
-        .image-modal .close-modal {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            color: white;
-            font-size: 30px;
-            cursor: pointer;
-        }
+        .search-results { max-height: 200px; overflow-y: auto; position: absolute; z-index: 1000; background: black; border: 1px solid #ff007f; box-shadow: 0 0 10px #ff007f; padding: 10px; }
+        .chatbot { position: fixed; bottom: 80px; left: 20px; background: rgba(0, 0, 0, 0.9); color: #ff007f; padding: 15px; border-radius: 10px; box-shadow: 0 0 10px #ff007f; display: none; width: 300px; }
+        .chat-toggle { position: fixed; bottom: 20px; left: 20px; background: #ff007f; color: black; border: none; padding: 10px; cursor: pointer; font-weight: bold; box-shadow: 0 0 10px #ff007f; }
+        #scrollTop { position: fixed; bottom: 80px; right: 20px; background: #ff007f; color: black; border: none; padding: 10px; cursor: pointer; display: none; font-weight: bold; box-shadow: 0 0 10px #ff007f; z-index: 1000; }
+        .popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: black; color: #ff007f; padding: 20px; border: 2px solid #ff007f; box-shadow: 0 0 10px #ff007f; }
+        .popup .close-btn { cursor: pointer; color: white; font-size: 20px; position: absolute; top: 5px; right: 10px; }
+        #contact { display: none; }
+        .highlight { background-color: #ff007f; color: black; padding: 2px 5px; border-radius: 3px; }
+        .image-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 2000; justify-content: center; align-items: center; overflow: auto; }
+        .image-modal-content { display: flex; flex-direction: column; align-items: center; width: 90vw; max-height: 90vh; padding: 20px; }
+        .image-modal img { max-width: 100%; max-height: 70vh; height: auto; border: 2px solid #ff007f; box-shadow: 0 0 20px #ff007f; object-fit: contain; }
+        .image-modal .info-box { background: rgba(0, 0, 0, 0.8); color: #ff007f; padding: 10px; margin-top: 10px; border: 1px solid #ff007f; border-radius: 5px; width: 100%; max-width: 600px; text-align: left; }
+        .image-modal .close-modal { position: fixed; top: 10px; right: 10px; color: white; font-size: 30px; cursor: pointer; }
     </style>
 </head>
 <body>
-<audio id="backgroundAudio" autoplay loop>
+    <audio id="backgroundAudio" autoplay loop>
         <source src="Kamikaze.m4a" type="audio/mp4">
         Your browser does not support the audio element.
     </audio>
@@ -240,7 +118,7 @@
                 <div class="col-md-4"><img src="Rage-Goat.png" class="portfolio-item" alt="Rage Goat" data-info="Rage Goat - A fierce digital illustration of a goat with an attitude, created in 2023."></div>
                 <div class="col-md-4"><img src="BirdMan.png" class="portfolio-item" alt="Bird Man" data-info="Bird Man - A surreal piece featuring a humanoid bird, completed in 2022."></div>
                 <div class="col-md-4"><img src="BigBear.png" class="portfolio-item" alt="Big Bear" data-info="Big Bear - A majestic bear in a vibrant forest, drawn in 2024."></div>
-				<div class="col-md-4"><img src="FireBird.jpg" class="portfolio-item" alt="Fire Bird" data-info="Fire Bird - A phoenix, the mythical bird known for its ability to self-combust and rise from its own ashes, drawn in 2025."></div>
+                <div class="col-md-4"><img src="FireBird.jpg" class="portfolio-item" alt="Fire Bird" data-info="Fire Bird - A phoenix, the mythical bird known for its ability to self-combust and rise from its own ashes, drawn in 2025."></div>
             </div>
         </section>
         <section id="contact">
@@ -259,18 +137,11 @@
         <div id="faqResults"></div>
     </div>
     <button id="scrollTop">▲</button>
-    <div id="popup" class="popup"> 
+    <div id="popup" class="popup">
         <span class="close-btn" onclick="closePopup()">❌</span>
         <a href="https://discord.gg/qWxFFwgMnj" target="_blank">
-            <button style="background-color: #7289DA; 
-                           color: white; 
-                           padding: 10px 20px; 
-                           border: none; 
-                           border-radius: 5px; 
-                           cursor: pointer; 
-                           font-size: 16px; 
-                           transition: background-color 0.3s;"
-                    onmouseover="this.style.backgroundColor='#677BC4'"
+            <button style="background-color: #7289DA; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: background-color 0.3s;" 
+                    onmouseover="this.style.backgroundColor='#677BC4'" 
                     onmouseout="this.style.backgroundColor='#7289DA'">
                 Join Our Discord
             </button>
@@ -284,64 +155,38 @@
         </div>
     </div>
     <script>
-        // FAQ data - edit these as needed
         const faqData = [
-            {
-                question: "What is your portfolio about?",
-                answer: "Our portfolio showcases digital art and creative projects."
-            },
-            {
-                question: "How can I contact you?",
-                answer: "You can contact us through the Contact section or Discord."
-            },
-            {
-                question: "What kind of art do you create?",
-                answer: "We create digital art featuring unique characters and designs."
-            }
+            { question: "What is your portfolio about?", answer: "Our portfolio showcases digital art and creative projects." },
+            { question: "How can I contact you?", answer: "You can contact us through the Contact section or Discord." },
+            { question: "What kind of art do you create?", answer: "We create digital art featuring unique characters and designs." }
         ];
 
-        // Function to highlight common words
         function highlightCommonWords(question, answer) {
             const questionWords = question.toLowerCase().split(/\s+/);
             const answerWords = answer.split(/\s+/);
             return answerWords.map(word => {
                 const cleanWord = word.replace(/[^a-zA-Z0-9]/g, '');
-                if (questionWords.includes(cleanWord.toLowerCase())) {
-                    return `<span class="highlight">${word}</span>`;
-                }
+                if (questionWords.includes(cleanWord.toLowerCase())) return `<span class="highlight">${word}</span>`;
                 return word;
             }).join(' ');
         }
 
-        // Search and display FAQ results
         function searchFAQ(query) {
             const resultsDiv = document.getElementById('faqResults');
             resultsDiv.innerHTML = '';
-            
             if (!query.trim()) return;
-
             const matches = faqData.filter(item => 
-                item.question.toLowerCase().includes(query.toLowerCase()) ||
+                item.question.toLowerCase().includes(query.toLowerCase()) || 
                 item.answer.toLowerCase().includes(query.toLowerCase())
             );
-
-            if (matches.length === 0) {
-                resultsDiv.innerHTML = '<p>No matches found.</p>';
-                return;
-            }
-
+            if (matches.length === 0) { resultsDiv.innerHTML = '<p>No matches found.</p>'; return; }
             matches.forEach(item => {
                 const resultDiv = document.createElement('div');
-                resultDiv.innerHTML = `
-                    <p><strong>Q: ${item.question}</strong></p>
-                    <p>A: ${highlightCommonWords(query, item.answer)}</p>
-                    <hr style="border-color: #ff007f;">
-                `;
+                resultDiv.innerHTML = `<p><strong>Q: ${item.question}</strong></p><p>A: ${highlightCommonWords(query, item.answer)}</p><hr style="border-color: #ff007f;">`;
                 resultsDiv.appendChild(resultDiv);
             });
         }
 
-        // Image modal functions
         function showImageModal(src, info) {
             const modal = document.getElementById('imageModal');
             const modalImg = modal.querySelector('img');
@@ -351,26 +196,17 @@
             modal.style.display = 'flex';
         }
 
-        function closeImageModal() {
-            document.getElementById('imageModal').style.display = 'none';
-        }
+        function closeImageModal() { document.getElementById('imageModal').style.display = 'none'; }
 
-        // Event listeners
         document.getElementById('chatToggle').addEventListener('click', function() {
             const chatbot = document.getElementById('chatbot');
             chatbot.style.display = chatbot.style.display === 'none' ? 'block' : 'none';
         });
 
-        document.getElementById('chatInput').addEventListener('input', function(e) {
-            searchFAQ(e.target.value);
-        });
+        document.getElementById('chatInput').addEventListener('input', function(e) { searchFAQ(e.target.value); });
 
         document.querySelectorAll('.portfolio-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const src = this.src;
-                const info = this.getAttribute('data-info');
-                showImageModal(src, info);
-            });
+            item.addEventListener('click', function() { showImageModal(this.src, this.getAttribute('data-info')); });
         });
 
         function showContact() { document.getElementById('contact').style.display = 'block'; }
@@ -378,27 +214,51 @@
         function closePopup() { document.getElementById('popup').style.display = 'none'; }
         setTimeout(() => { document.getElementById('popup').style.display = 'block'; }, 5000);
 
-        // Scroll to top functionality
         window.onscroll = function() {
             const scrollTopBtn = document.getElementById('scrollTop');
             scrollTopBtn.style.display = window.scrollY > 100 ? 'block' : 'none';
         };
-        document.getElementById('scrollTop').addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+        document.getElementById('scrollTop').addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
     </script>
-	 <div class="audio-controls">
+    <!-- Audio controls section -->
+    <div class="audio-controls">
+        <div id="songTitle" style="margin-bottom: 10px; color: #ff007f;">Kamikaze</div>
         <button id="playPauseBtn">Pause</button>
+        <button id="nextBtn">Next</button>
+        <button id="minMaxBtn">-</button> <!-- Minimize/Maximize button -->
         <div class="volume-control">
             <label for="volume">Volume:</label>
             <input type="range" id="volume" min="0" max="1" step="0.1" value="1">
         </div>
     </div>
-	 <script>
-        // Get elements
+    <script>
         const audio = document.getElementById('backgroundAudio');
         const playPauseBtn = document.getElementById('playPauseBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const minMaxBtn = document.getElementById('minMaxBtn');
         const volumeControl = document.getElementById('volume');
+        const songTitle = document.getElementById('songTitle');
+        const audioControls = document.querySelector('.audio-controls');
+
+        // Playlist
+        const playlist = [
+            { title: "Kamikaze", src: "Kamikaze.m4a" },
+            { title: "Six Flags", src: "Six-Flags.m4a" },
+            { title: "Bundle Of Sticks", src: "Bundle-Of-Sticks.m4a" },
+            { title: "Division", src: "Division.m4a" },
+            { title: "Floor It", src: "Floor-It.m4a" }
+        ];
+        let currentSongIndex = 0;
+
+        // Function to update and play the current song
+        function updateSong() {
+            audio.src = playlist[currentSongIndex].src;
+            songTitle.textContent = playlist[currentSongIndex].title;
+            audio.play().catch(error => {
+                console.log("Autoplay blocked:", error);
+                playPauseBtn.textContent = 'Play'; // Reset to Play if blocked
+            });
+        }
 
         // Play/Pause functionality
         playPauseBtn.addEventListener('click', function() {
@@ -411,22 +271,40 @@
             }
         });
 
+        // Next song functionality
+        nextBtn.addEventListener('click', function() {
+            currentSongIndex = (currentSongIndex + 1) % playlist.length;
+            updateSong();
+        });
+
         // Volume control
         volumeControl.addEventListener('input', function() {
             audio.volume = this.value;
         });
 
-        // Handle cases where autoplay might be blocked
+        // Sync button text with play/pause state
         audio.addEventListener('play', function() {
             playPauseBtn.textContent = 'Pause';
         });
-
         audio.addEventListener('pause', function() {
             playPauseBtn.textContent = 'Play';
+        });
+
+        // Minimize/Maximize functionality
+        minMaxBtn.addEventListener('click', function() {
+            if (audioControls.classList.contains('minimized')) {
+                audioControls.classList.remove('minimized');
+                minMaxBtn.textContent = '-'; // Change to minimize icon
+            } else {
+                audioControls.classList.add('minimized');
+                minMaxBtn.textContent = '+'; // Change to maximize icon
+            }
+        });
+
+        // Start audio immediately on page load
+        window.addEventListener('load', function() {
+            updateSong(); // Ensure audio starts playing
         });
     </script>
 </body>
 </html>
-
-
-
